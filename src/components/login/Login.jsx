@@ -26,7 +26,7 @@ function Login() {
     signInWithEmailAndPassword(auth, values.email, values.pass)
       .then(async (res) => {
         setSubmitButtonDisabled(false);
-        navigate("/tallycounter");
+        navigate("/");
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);

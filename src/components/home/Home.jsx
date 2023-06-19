@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase";
+import styles from "./Home.module.css";
 
 function Home(props) {
   const [counters, setCounters] = useState([
@@ -87,18 +88,9 @@ function Home(props) {
     }
   };
 
-  const handleSignOut = async () => {
-    try {
-      await auth.signOut();
-      alert("User signed out successfully");
-    } catch (error) {
-      alert("Error occurred during sign out:", error);
-    }
-  };
-
   return (
     <div>
-      <div>
+      <div className={styles.Homebuttons}>
         <h1>
           <Link to="/login">Login</Link>
         </h1>
@@ -107,11 +99,6 @@ function Home(props) {
           <Link to="/signup">Signup</Link>
         </h1>
         <br />
-        <h1>
-          <Link to="/signout" onClick={handleSignOut}>
-            Signout
-          </Link>
-        </h1>
       </div>
 
       <br />
@@ -119,64 +106,63 @@ function Home(props) {
       <br />
 
       <h2>
-        {props.name ? (
-          <React.Fragment>
-            Welcome - {props.name}
-            <div className="container">
-              <h1 id="heading1">Tally Counter</h1>
-              <button className="addbtn" onClick={addCounter}>
-                Add Counter
-              </button>
-              <div className="tallyarea">
-                {counters.map((counter) => (
-                  <div className="tallys" key={counter.id}>
-                    <h2 id="heading2">{counter.name}</h2>
-                    <div id="countt">
-                      Count: <p>{counter.count}</p>
-                    </div>
-                    <div className="tallybox">
-                      <button onClick={() => decrement(counter.id)}>
-                        Decrement -
-                      </button>
-                      <button onClick={() => increment(counter.id)}>
-                        Increment +
-                      </button>
-                      <button onClick={() => reset(counter.id)}>Reset</button>
-                      <button onClick={() => removeCounter(counter.id)}>
-                        Remove
-                      </button>
-                      {!counter.isRenaming ? (
-                        <button onClick={() => handleRenameClick(counter.id)}>
-                          Rename
-                        </button>
-                      ) : (
-                        <div>
-                          <input
-                            type="text"
-                            value={counter.name}
-                            onChange={(event) =>
-                              handleInputChange(event, counter.id)
-                            }
-                          />
-                          <button
-                            onClick={() => handleRenameSubmit(counter.id)}
-                          >
-                            Set
-                          </button>
-                        </div>
-                      )}
-                      <button onClick={() => setStartPoint(counter.id)}>
-                        Start Point
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </React.Fragment>
-        ) : (
-          "Login please"
-        )}
+        {props.name
+          ? // <React.Fragment>
+            //   Welcome - {props.name}
+            //   <div className="container">
+            //     <h1 id="heading1">Tally Counter</h1>
+            //     <button className="addbtn" onClick={addCounter}>
+            //       Add Counter
+            //     </button>
+            //     <div className="tallyarea">
+            //       {counters.map((counter) => (
+            //         <div className="tallys" key={counter.id}>
+            //           <h2 id="heading2">{counter.name}</h2>
+            //           <div id="countt">
+            //             Count: <p>{counter.count}</p>
+            //           </div>
+            //           <div className="tallybox">
+            //             <button onClick={() => decrement(counter.id)}>
+            //               Decrement -
+            //             </button>
+            //             <button onClick={() => increment(counter.id)}>
+            //               Increment +
+            //             </button>
+            //             <button onClick={() => reset(counter.id)}>Reset</button>
+            //             <button onClick={() => removeCounter(counter.id)}>
+            //               Remove
+            //             </button>
+            //             {!counter.isRenaming ? (
+            //               <button onClick={() => handleRenameClick(counter.id)}>
+            //                 Rename
+            //               </button>
+            //             ) : (
+            //               <div>
+            //                 <input
+            //                   type="text"
+            //                   value={counter.name}
+            //                   onChange={(event) =>
+            //                     handleInputChange(event, counter.id)
+            //                   }
+            //                 />
+            //                 <button
+            //                   onClick={() => handleRenameSubmit(counter.id)}
+            //                 >
+            //                   Set
+            //                 </button>
+            //               </div>
+            //             )}
+            //             <button onClick={() => setStartPoint(counter.id)}>
+            //               Start Point
+            //             </button>
+            //           </div>
+            //         </div>
+            //       ))}
+            //     </div>
+            //   </div>
+            // </React.Fragment>
+            "Login to continue"
+          : "Login please"}
       </h2>
     </div>
   );

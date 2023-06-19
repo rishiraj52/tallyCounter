@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import "./Tally.css"
+import { Link } from "react-router-dom";
+import { auth } from "../../firebase";
+import "./Tally.css";
 
 const TallyCounter = () => {
   const [counters, setCounters] = useState([
@@ -86,8 +88,25 @@ const TallyCounter = () => {
     }
   };
 
+  const handleSignOut = async () => {
+    try {
+      await auth.signOut();
+      alert("User signed out successfully");
+      window.location.href = "http://reverr-tallycounter.vercel.app.com/";
+    } catch (error) {
+      alert("Error occurred during sign out:", error);
+    }
+  };
+
   return (
     <div className="container">
+      <navbar>
+        <h1>
+          <Link to="/signout" onClick={handleSignOut}>
+            Signout
+          </Link>
+        </h1>
+      </navbar>
       <h1 id="heading1">Tally Counter</h1>
       <button className="addbtn" onClick={addCounter}>
         Add Counter
